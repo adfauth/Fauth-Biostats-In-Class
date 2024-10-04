@@ -12,6 +12,11 @@ library(tidyverse)
 library(here)
 ```
 
+Import dataset:
+```{r}
+drug_res = read.csv(here("Data", "drug_resistance.csv"))
+head(drug_res)
+```
 
 
 
