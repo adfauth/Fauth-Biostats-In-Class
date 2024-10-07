@@ -64,7 +64,6 @@ More summary stats:
 grades = c(90,94,96,90,84,86)
 summary(grades)
 quantile(grades,probs = c(0, 0.25, 0.5, 0.75, 1))
-
 ```
 
 
