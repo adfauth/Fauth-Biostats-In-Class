@@ -1,0 +1,55 @@
+---
+title: "Oct 7"
+author: "Aidan Fauth"
+format: html
+editor: visual
+---
+
+## Set up
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(here)
+```
+
+Read in tomato data frame:
+
+```{r}
+tomatoes = read.csv(here("Data", "tomato_data.csv"))
+```
+
+Assign correct data types:
+```{r}
+head(tomatoes)
+```
+
+Make Treatment to a factor
+```{r}
+tomatoes$Treatment = as.factor(tomatoes$Treatment)
+levels(tomatoes$Treatment)
+```
+
+Data validation was not used on data entry -- must standardize the names of both groups:
+
+%in% -- "included in"
+== -- "exactly equal to" * more efficient in this case but we already did it using previous method
+```{r}
+fix1 = which(tomatoes$Treatment %in% c("control", "Control"))
+# or bc we have one mistake in each: which(data == )
+tomatoes$Treatment[fix1] = "control"
+head(tomatoes)
+```
+
+```{r}
+fix2 = which(tomatoes$Treatment %in% c("fertilizer", "Fertilizer"))
+tomatoes$Treatment[fix2] = "fertilizer"
+levels(tomatoes$Treatment)
+```
+
+Re-factor the data:
+```{r}
+tomatoes$Treatment = factor(tomatoes$Treatment)
+levels(tomatoes$Treatment)
+```
+
+

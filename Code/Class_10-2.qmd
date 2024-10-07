@@ -6,6 +6,7 @@ editor: visual
 ---
 
 ## Set up
+
 ```{r}
 rm(list = ls())
 library(tidyverse)
@@ -13,6 +14,7 @@ library(here)
 ```
 
 Import data set:
+
 ```{r}
 drug_res = read.csv(here("Data", "drug_resistance.csv"))
 head(drug_res)
@@ -21,6 +23,7 @@ glimpse(drug_res)
 ```
 
 Creates factor variable for treatment:
+
 ```{r}
 drug_res$Treatment = as.factor(drug_res$Treatment)
 levels(drug_res$Treatment)
@@ -29,11 +32,13 @@ levels(drug_res$Treatment)
 Fix data in treatment variable:
 
 Find the rows that have any version of control -- use `which()` func. to do so:
+
 ```{r}
 fix = which(drug_res$Treatment %in% c("cantrol", "control", "Control")) #identify rows that need repair 
 ```
 
 Fix:
+
 ```{r}
 drug_res$Treatment[fix] = "control" # all will be entered as control
 # used a variable bc the data will not always be in order so [1:10] wouldn't work
@@ -46,13 +51,10 @@ levels(drug_res$Treatment)
 ```
 
 Fix the other data entered:
+
 ```{r}
 change = which(drug_res$Treatment %in% c("drug x 2", "drug2","Drugx2"))
 drug_res$Treatment[change] = "Drugx2"
 drug_res$Treatment = factor(drug_res$Treatment) # this tells R to re-factor now that they have changed
 levels(drug_res$Treatment)
 ```
-
-
-
-
