@@ -52,4 +52,21 @@ tomatoes$Treatment = factor(tomatoes$Treatment)
 levels(tomatoes$Treatment)
 ```
 
+Now look at summary function
+
+```{r}
+test = c(2,4,6,8,10,12,14,16,18,20)
+summary(test)
+```
+
+More summary stats:
+```{r}
+grades = c(90,94,96,90,84,86)
+summary(grades)
+quantile(grades,probs = c(0, 0.25, 0.5, 0.75, 1))
+
+```
+
+
+
 
