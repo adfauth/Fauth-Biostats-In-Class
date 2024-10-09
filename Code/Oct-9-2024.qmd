@@ -25,7 +25,26 @@ slice(tomatoes, c(3,7,9))
 
 
 ```{r}
-filter(tomatoes, Treatment == "Fertilizer" & Avg_tomato_weight_g >=145)
+filter(tomatoes, Treatment == "fertilizer" & Avg_tomato_weight_g >=145)
 ```
+
+Save your changes (to a new file in an output folder)
+
+Make the output folder
+
+```{r}
+dir.create(here("Outputs"))
+```
+
+Now save the file
+
+```{r}
+write.csv(tomatoes,here("Outputs", "tomatoes_fixed.csv"),row.names = FALSE)
+```
+
+```{r}
+toms2 = read.csv(here("Outputs", "tomatoes_fixed.csv"))
+```
+
 
 
