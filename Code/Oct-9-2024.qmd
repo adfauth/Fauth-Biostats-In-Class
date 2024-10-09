@@ -46,5 +46,26 @@ write.csv(tomatoes,here("Outputs", "tomatoes_fixed.csv"),row.names = FALSE)
 toms2 = read.csv(here("Outputs", "tomatoes_fixed.csv"))
 ```
 
+```{r}
+lead = read.csv(here("Data", "NoColead.csv"))
+summary(lead)
+```
+
+What if we want to know the average number of tests given in the data set?
+```{r}
+lead %>% summarise(
+  mean_num_tests = mean(num_tests)
+) %>% View()
+```
+
+What is the mean number of test per year?
+```{r}
+lead_summary = lead %>% 
+  group_by(Year) |>
+  summarise(mean_tests_per_year = mean(num_tests)
+  )
+```
+
+
 
 
