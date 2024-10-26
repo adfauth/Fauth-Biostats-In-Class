@@ -18,7 +18,6 @@ library(here)
 critters = read.csv(here("Data", "birds_and_mammals.csv"))
 ```
 
-
 Filter just for mammals in the order Carnivora and make a new dataset called "carnivores"
 
 ```{r}
