@@ -4,6 +4,24 @@ output: html_document
 date: "2022-10-27"
 ---
 
+## Set up
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(here)
+```
+
+Load in the data:
+```{r}
+bf = read.csv(here("Data", "body_fat_percentage.csv"))
+```
+
+Gender as a factor:
+```{r}
+bf$gender = as.factor(bf$gender)
+```
+
 ## Reviewing the t-test
 
 Let's conduct a 2-sample t-test to compare body fat percentage between men and women.
@@ -15,8 +33,28 @@ The data set presents the body fat percentage for a sample of men and women who 
 Use the information you learned from reading chapter 5 and doing homework 21 to conduct a t-test comparing mean body fat percentage between the male and female groups. But don’t just rush to the test – follow the recommended analysis workflow:
 
 1.  Plot the data and look at expected relationships
+
+```{r}
+ggplot(bf, aes(x = gender, y = body_fat_percent))+
+  geom_boxplot(outlier.color = "red", color = c("gray", "black"))+
+  geom_point(size = 5, color = "blue", alpha = .5)+
+  theme_bw()
+```
+
 2.  Calculate the mean and standard deviation for the data and examine the resulting output.
+
+```{r}
+bf |> group_by(gender) |> summarise(
+  meanbf = mean(body_fat_percent),
+  sdbf = sd(body_fat_percent))
+```
+
+Males have a lower mean body fat percentage and are slightly more variable than females.
+
 3.  Discuss with your partner:
     -   Review in the book: What are the assumptions about the data appropriate for a t-test? When you examine the plots and summary data, do they appear to meet those assumptions?
-    -   Based on examination of the plots and summary data, do you expect that there is a statistically significant difference in mean body fat percentage between males and females in this sample?
+    
+    The equal variance assumption could be violated because they are not equal (look at the sd,) but the independence condition should be met by these data.
+    
+   -   Based on examination of the plots and summary data, do you expect that there is a statistically significant difference in mean body fat percentage between males and females in this sample?
 4.  Conduct a t-test and then interpret the results. What do they tell you about the null vs. alternative hypotheses?
