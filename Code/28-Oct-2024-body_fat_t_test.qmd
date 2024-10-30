@@ -54,7 +54,15 @@ Males have a lower mean body fat percentage and are slightly more variable than 
 3.  Discuss with your partner:
     -   Review in the book: What are the assumptions about the data appropriate for a t-test? When you examine the plots and summary data, do they appear to meet those assumptions?
     
-    The equal variance assumption could be violated because they are not equal (look at the sd,) but the independence condition should be met by these data.
+    
+The equal variance assumption could be violated because they are not equal (thought they are close,) but the independence condition should be met by these data. We are not sure about normality, but the plots look approximately normal.
     
    -   Based on examination of the plots and summary data, do you expect that there is a statistically significant difference in mean body fat percentage between males and females in this sample?
 4.  Conduct a t-test and then interpret the results. What do they tell you about the null vs. alternative hypotheses?
+
+```{r}
+t.test(body_fat_percent~gender, data = bf)
+```
+
+Reject the null. We have statistically discernible evidence that there is a difference in mean body fat percentage between male and female groups. Men have discernibly less body fat than women (t = 2.86, df = 20.96, p = 0.00932)
+
