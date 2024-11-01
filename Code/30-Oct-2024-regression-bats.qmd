@@ -11,7 +11,10 @@ For your homework you read through the section of the book that presents linear 
 Set things up (hint: there is something new to add to your `library()` calls...)
 
 ```{r}
-
+rm(list = ls())
+library(tidyverse)
+library(here)
+library(ggfortify) #new!
 ```
 
 ## Linear models
@@ -25,7 +28,7 @@ Don't confuse a general linear model with a *generalized* linear model or GLM.
 Let's pull in some data appropriate for the day before Halloween: data on Bats!
 
 ```{r}
-bats <- read.csv()
+bats <- read.csv(here("Data", "tricolored_bat_hibernation.csv"))
 glimpse(bats)
 ```
 
@@ -34,7 +37,8 @@ These data came from a research project looking at what, if any, environmental v
 A couple of the variables are categorical - let's fix that in the data.
 
 ```{r}
-
+bats$Chamber <- as.factor(bats$Chamber)
+bats$Sex <- as.factor(bats$Sex)
 ```
 
 ## Question
@@ -48,22 +52,24 @@ Prediction: bats that arouse from hibernation more frequently will lose more bod
 Let's start with a scatter plot:
 
 ```{r}
-
+ggplot(bats, aes(x = Arousals, y = mass_loss_g))+
+  geom_point(size = 3, color = "blue")+
+  theme_bw()
 ```
 
 ## Interpreting the figure: biological insight
 
-We notice that the slope is: **CHOOSE ONE: POSITIVE NEGATIVE FLAT (0)**.
+We notice that the slope is: Positive.
 
 We can also guesstimate the slope and intercept from the figure:
 
-Roughly speaking, the mass lost during hibernation ranges between **FILL IN VALUES**
+Roughly speaking, the mass lost during hibernation ranges between 0.25 & 2
 
-Roughly speaking, the number of arousals varies between **FILL IN VALUES**
+Roughly speaking, the number of arousals varies between 4 & 16
 
-Slope is rise/run, which in this case is about **FILL IN VALUES** for rise and **FILL IN VALUES** for run, so we get **FILL IN VALUE** as our guesstimate of the slope.
+Slope is rise/run, which in this case is about 1.75 for rise and 12 for run, so we get 7/48 as our guesstimate of the slope.
 
-Eyeballing the plot, we would also guess that the y-intercept is somewhere around **FILL IN VALUE**
+Eyeballing the plot, we would also guess that the y-intercept is somewhere around 0.2
 
 **IT IS ALWAYS A GOOD IDEA TO EXAMINE YOUR DATA BEFORE THE ANALYSIS AND TO SEE IF YOU CAN APPROXIMATE SOME OF THE VALUES THAT WILL RESULT.**
 
@@ -72,13 +78,13 @@ Eyeballing the plot, we would also guess that the y-intercept is somewhere aroun
 We use the `lm()` function...
 
 ```{r}
-model_bats <- 
+model_bats <- lm(bats$mass_loss_g~bats$Arousals)
 ```
 
 Ok, the model has been fit. Before we look at the results, let's consider the assumptions.
 
 ```{r}
-
+autoplot(model_bats, smooth.colour = NA)
 ```
 
 What does this all mean?
