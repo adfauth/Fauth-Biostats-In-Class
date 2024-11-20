@@ -1,0 +1,64 @@
+---
+title: "Class 11/20"
+author: "Aidan Fauth"
+format: html
+editor: visual
+---
+
+## Set up
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+library(ggfortify)
+```
+
+
+Read in data file with the locations of several game camera locations.
+
+```{r}
+cams <- read.csv(here("Data", "site_locations.csv"))
+```
+
+```{r}
+species <- read.csv(here("Data", "species_per_site.csv"))
+```
+
+
+make df into wide format:
+
+```{r}
+sp_wide <- species |> pivot_wider(names_from = Date, 
+                                  values_from = Num_species)
+```
+
+
+make something wide and make it long:
+
+```{r}
+sp_long <- sp_wide |> pivot_longer(cols = c(`1-Jul-24`:`15-Jul-24`), names_to = "Data", values_to = "Num_species")
+```
+
+
+Join Dataframes
+
+use `join` function to do it.
+
+```{r}
+cams_species <- full_join(species, cams)
+```
+
+Other direction:
+
+```{r}
+site_species <- full_join(cams, species)
+```
+
+
+
+
+
+
+
+
