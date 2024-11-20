@@ -6,6 +6,7 @@ editor: visual
 ---
 
 ## Set up
+
 ```{r}
 rm(list=ls())
 library(tidyverse)
@@ -19,11 +20,13 @@ tomatoes = read.csv(here("Data", "tomato_data.csv"))
 ```
 
 Assign correct data types:
+
 ```{r}
 head(tomatoes)
 ```
 
 Make Treatment to a factor
+
 ```{r}
 tomatoes$Treatment = as.factor(tomatoes$Treatment)
 levels(tomatoes$Treatment)
@@ -31,8 +34,8 @@ levels(tomatoes$Treatment)
 
 Data validation was not used on data entry -- must standardize the names of both groups:
 
-%in% -- "included in"
-== -- "exactly equal to" * more efficient in this case but we already did it using previous method
+%in% -- "included in" == -- "exactly equal to" \* more efficient in this case but we already did it using previous method
+
 ```{r}
 fix1 = which(tomatoes$Treatment %in% c("control", "Control"))
 # or bc we have one mistake in each: which(data == )
@@ -47,6 +50,7 @@ levels(tomatoes$Treatment)
 ```
 
 Re-factor the data:
+
 ```{r}
 tomatoes$Treatment = factor(tomatoes$Treatment)
 levels(tomatoes$Treatment)
@@ -60,12 +64,9 @@ summary(test)
 ```
 
 More summary stats:
+
 ```{r}
 grades = c(90,94,96,90,84,86)
 summary(grades)
 quantile(grades,probs = c(0, 0.25, 0.5, 0.75, 1))
 ```
-
-
-
-

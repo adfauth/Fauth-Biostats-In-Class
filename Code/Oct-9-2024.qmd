@@ -14,15 +14,16 @@ library(here)
 ```
 
 Read in tomato data set:
+
 ```{r}
 tomatoes = read.csv(here("Data", "tomato_data.csv")) #use View() makes it easier to see
 ```
 
 Write a line of code that returns the 3rd, 7th, and 9th rows of data:
+
 ```{r}
 slice(tomatoes, c(3,7,9))
 ```
-
 
 ```{r}
 filter(tomatoes, Treatment == "fertilizer" & Avg_tomato_weight_g >=145)
@@ -52,6 +53,7 @@ summary(lead)
 ```
 
 What if we want to know the average number of tests given in the data set?
+
 ```{r}
 lead %>% summarise(
   mean_num_tests = mean(num_tests)
@@ -59,13 +61,10 @@ lead %>% summarise(
 ```
 
 What is the mean number of test per year?
+
 ```{r}
 lead_summary = lead %>% 
   group_by(Year) |>
   summarise(mean_tests_per_year = mean(num_tests)
   )
 ```
-
-
-
-
